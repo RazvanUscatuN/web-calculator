@@ -32,3 +32,18 @@ function operate(number1, operator, number2) {
       return divide(number1, number2);
   }
 }
+
+const buttons = document.querySelectorAll(".btn");
+const btnNumberArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+const display = document.querySelector("#display");
+
+//Add event to display when nr are preset
+buttons.forEach(function (button) {
+  if (btnNumberArray.includes(button.textContent)) {
+    button.addEventListener("click", function () {
+      const displayValue = document.createElement("span");
+      displayValue.textContent = this.textContent;
+      display.appendChild(displayValue);
+    });
+  }
+});
