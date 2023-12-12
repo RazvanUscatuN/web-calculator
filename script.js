@@ -29,50 +29,38 @@ function operate(number1, operator, number2) {
   }
 }
 
-
-
-const buttons = document.querySelectorAll(".btn");
-const btnNumberArray = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
-const btnOperators = ["+", "-", "x", "÷"];
+const btnNumbers = document.querySelectorAll(".btn-nr");
+const btnOperators = document.querySelectorAll(".btn-opr");
 const display = document.querySelector("#display-current");
+const displayOperator = document.querySelector("#display-operator");
 
+let displayNumber = "";
 let firstNumber = 0;
-let operator = "";
 let secondNumber = 0;
+let operator = "";
 
-//Add event to display when nr are preset
-buttons.forEach(function (button) {
-  if (btnNumberArray.includes(button.textContent)) {
-    button.addEventListener("click", function () {
-      const displayValue = document.createElement("span");
-      displayValue.textContent = this.textContent;
-      display.appendChild(displayValue);
-    });
-  }
-  if (btnOperators.includes(button.textContent)) {
-    button.addEventListener("click", function () {
-      if (firstNumber == 0) {
-        firstNumber = parseInt(display.textContent);
-        operator = this.textContent;
-        display.textContent = "";
-      } else {
-        secondNumber = parseInt(display.textContent);
-        display.textContent = operate(firstNumber, operator, secondNumber);
-        firstNumber = 0;
-        secondNumber = 0;
-        operator = "";
-      }
-    });
-  }
- });
- 
+// function for each number preset to show on display
+btnNumbers.forEach(function (button) {
+  button.addEventListener("click", function () {
+    let number = button.textContent;
+    displayNumber += number;
+    display.textContent = displayNumber;
+  });
+});
+
+//function for when a operator is preset
+btnOperators.forEach(function (eachOperator) {
+  eachOperator.addEventListener("click", function () {
+    //when preset the first time it take the display number and make first number
+    if (firstNumber == 0 && operator == "") {
+      firstNumber = parseInt(display.textContent);
+      operator = eachOperator.textContent;
+      displayOperator.textContent = operator;
+      displayNumber = "";
+      display.textContent = "";
+    }
+
+  });
+});
 
 
-//add event listener to operator
-//if firstNumber = 0 then when a operator is preset set the value from curent display
-
-// also display the firstNumber and operator in display-last-operation
-// if firstNumber not 0 then set the secondNumber
-// do the calculation when "=" is preset
-//then the result become the firstNumber if the user what to do more calculation and secondNumber is set to 0
-//happens when showing result and operator is preset
