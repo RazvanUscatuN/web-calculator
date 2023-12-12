@@ -81,4 +81,12 @@ btnOperators.forEach(function (eachOperator) {
 
 
 
-
+document.querySelector("#btn-equals").addEventListener("click", function(){
+  secondNumber = parseInt(display.textContent);
+  displayNumber = operate(firstNumber, operator, secondNumber);
+  display.textContent = displayNumber;
+  firstNumber = displayNumber;
+  operator = "";
+  displayOperator.textContent = "";
+  secondNumber = 0;
+});
