@@ -11,6 +11,7 @@ function multiply(number1, number2) {
 }
 
 function divide(number1, number2) {
+  if(number2 == 0){return "ERROR"};
   return number1 / number2;
 }
 
@@ -44,6 +45,7 @@ btnNumbers.forEach(function (button) {
   button.addEventListener("click", function () {
     let number = button.textContent;
     displayNumber += number;
+    displayOperator.textContent = "";
     display.textContent = displayNumber;
   });
 });
@@ -53,15 +55,16 @@ btnOperators.forEach(function (eachOperator) {
   eachOperator.addEventListener("click", function () {
     // when preset the first time it take the display number and make first number
     if (firstNumber == 0 && operator == "") {
-      firstNumber = parseInt(display.textContent);
+      firstNumber = parseFloat(display.textContent);
       operator = eachOperator.textContent;
       displayOperator.textContent = operator;
       displayNumber = "";
       display.textContent = "";
-    }// after first preset, if preset again
-    else if (firstNumber != 0 && operator != ""){
-      secondNumber = parseInt(display.textContent);
+    } // after first preset, if preset again
+    else if (firstNumber != 0 && operator != "") {
+      secondNumber = parseFloat(display.textContent);
       displayNumber = operate(firstNumber, operator, secondNumber);
+
       display.textContent = displayNumber;
       // after doing calc. the result become the first number
       firstNumber = displayNumber;
@@ -70,7 +73,7 @@ btnOperators.forEach(function (eachOperator) {
       secondNumber = 0;
     }
     // logic to do operation after first calculation
-    else if (firstNumber != 0 && operator == ""){
+    else if (firstNumber != 0 && operator == "") {
       operator = eachOperator.textContent;
       displayOperator.textContent = operator;
       displayNumber = "";
@@ -79,11 +82,9 @@ btnOperators.forEach(function (eachOperator) {
   });
 });
 
-
-
-document.querySelector("#btn-equals").addEventListener("click", function(){
-  if(firstNumber != 0){
-    secondNumber = parseInt(display.textContent);
+document.querySelector("#btn-equals").addEventListener("click", function () {
+  if (firstNumber != 0) {
+    secondNumber = parseFloat(display.textContent);
     displayNumber = operate(firstNumber, operator, secondNumber);
     display.textContent = displayNumber;
     firstNumber = displayNumber;
@@ -93,25 +94,35 @@ document.querySelector("#btn-equals").addEventListener("click", function(){
   }
 });
 
-
 //clear button logic
-document.querySelector("#btn-clear").addEventListener("click", function(){
+document.querySelector("#btn-clear").addEventListener("click", function () {
   firstNumber = 0;
   secondNumber = 0;
   operator = "";
   displayNumber = "";
   display.textContent = "";
-  displayOperator.textContent = "";
-
-})
-
+  displayOperator.textContent = "0";
+});
 
 //delete button logic
-document.querySelector("#btn-delete").addEventListener("click", function(){
-  if(displayNumber != 0 && displayNumber != ""){
-    displayNumber = displayNumber.slice(0,-1);
+document.querySelector("#btn-delete").addEventListener("click", function () {
+  if (displayNumber != 0 && displayNumber != "") {
+    displayNumber = displayNumber.slice(0, -1);
     display.textContent = displayNumber;
   }
-})
+});
 
-//TODO implement dot logic and changing variables to float
+//dot logic and changing variables to float
+document.querySelector("#btn-dot").addEventListener("click", function(){
+  if(displayNumber.split(".").length < 2){
+    //check if . is preset first time to put a 0 in front
+    if(displayNumber == ""){
+      displayNumber = "0."
+      display.textContent = displayNumber;
+    }else{
+      displayNumber += ".";
+      display.textContent = displayNumber;
+    }
+
+  }
+})
