@@ -45,7 +45,7 @@ btnNumbers.forEach(function (button) {
   button.addEventListener("click", function () {
     let number = button.textContent;
     displayNumber += number;
-    displayOperator.textContent = "";
+    // displayOperator.textContent = "";
     display.textContent = displayNumber;
   });
 });
@@ -100,8 +100,8 @@ document.querySelector("#btn-clear").addEventListener("click", function () {
   secondNumber = 0;
   operator = "";
   displayNumber = "";
-  display.textContent = "";
-  displayOperator.textContent = "0";
+  display.textContent = "0";
+  displayOperator.textContent = "";
 });
 
 //delete button logic
