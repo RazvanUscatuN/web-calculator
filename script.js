@@ -82,11 +82,36 @@ btnOperators.forEach(function (eachOperator) {
 
 
 document.querySelector("#btn-equals").addEventListener("click", function(){
-  secondNumber = parseInt(display.textContent);
-  displayNumber = operate(firstNumber, operator, secondNumber);
-  display.textContent = displayNumber;
-  firstNumber = displayNumber;
-  operator = "";
-  displayOperator.textContent = "";
-  secondNumber = 0;
+  if(firstNumber != 0){
+    secondNumber = parseInt(display.textContent);
+    displayNumber = operate(firstNumber, operator, secondNumber);
+    display.textContent = displayNumber;
+    firstNumber = displayNumber;
+    operator = "";
+    displayOperator.textContent = "";
+    secondNumber = 0;
+  }
 });
+
+
+//clear button logic
+document.querySelector("#btn-clear").addEventListener("click", function(){
+  firstNumber = 0;
+  secondNumber = 0;
+  operator = "";
+  displayNumber = "";
+  display.textContent = "";
+  displayOperator.textContent = "";
+
+})
+
+
+//delete button logic
+document.querySelector("#btn-delete").addEventListener("click", function(){
+  if(displayNumber != 0 && displayNumber != ""){
+    displayNumber = displayNumber.slice(0,-1);
+    display.textContent = displayNumber;
+  }
+})
+
+//TODO implement dot logic and changing variables to float
