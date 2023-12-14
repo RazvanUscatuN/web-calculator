@@ -34,19 +34,24 @@ const btnNumbers = document.querySelectorAll(".btn-nr");
 const btnOperators = document.querySelectorAll(".btn-opr");
 const display = document.querySelector("#display-current");
 const displayOperator = document.querySelector("#display-operator");
+const btnAll = document.querySelectorAll(".btn");
+
 
 let displayNumber = "";
 let firstNumber = 0;
 let secondNumber = 0;
 let operator = "";
 
+
 // function for each number preset to show on display
 btnNumbers.forEach(function (button) {
   button.addEventListener("click", function () {
-    let number = button.textContent;
-    displayNumber += number;
-    // displayOperator.textContent = "";
-    display.textContent = displayNumber;
+    if(displayNumber.length == 8 ){display.textContent = displayNumber;}
+    else {
+      let number = button.textContent;
+      displayNumber += number;
+      display.textContent = displayNumber;
+    }
   });
 });
 
@@ -64,14 +69,15 @@ btnOperators.forEach(function (eachOperator) {
     else if (firstNumber != 0 && operator != "") {
       secondNumber = parseFloat(display.textContent);
       displayNumber = operate(firstNumber, operator, secondNumber);
-
       display.textContent = displayNumber;
+
       // after doing calc. the result become the first number
       firstNumber = displayNumber;
       operator = "";
       displayOperator.textContent = "";
       secondNumber = 0;
-    }
+        
+      }
     // logic to do operation after first calculation
     else if (firstNumber != 0 && operator == "") {
       operator = eachOperator.textContent;
@@ -126,3 +132,27 @@ document.querySelector("#btn-dot").addEventListener("click", function(){
 
   }
 })
+
+//function to make a darker color from the background
+function darkenColor(color, percent) {
+  let num = parseInt(color.replace("#",""), 16),
+      amt = Math.round(2.55 * percent),
+      R = (num >> 16) + amt,
+      G = (num >> 8 & 0x00FF) + amt,
+      B = (num & 0x0000FF) + amt;
+  return "#" + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255)).toString(16).slice(1);
+}
+
+
+//hover effect 
+for( let elem of btnAll){
+  elem.addEventListener("click", function(){
+   let originalColor = elem.style.backgroundColor;
+   elem.style.backgroundColor = darkenColor(elem.style.backgroundColor, 80);
+   
+   setTimeout(function() {
+     elem.style.backgroundColor = originalColor;
+   }, 90); // 1000 milliseconds = 1 second
+  })
+ }
+ 

@@ -7,21 +7,22 @@ body {
 .calculator {
   display: flex;
   justify-content: center;
+  align-self: center;
   flex-direction: column;
   width: 400px;
   height: 500px;
-  border: 1rem solid rgb(83, 82, 82);
-  border-radius: 8px;
+  border: 1rem solid rgb(170, 170, 170);
+  border-radius: 18px;
 }
 
 .display {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
   height: 30%;
-  background-color: gray;
-  color: white;
+  gap:20px;
   align-items: center;
-  font-size: 30px;
+  font-size: 60px;
   padding-right: 10px;
 }
 
@@ -30,12 +31,18 @@ body {
   flex-wrap: wrap;
   justify-content: flex-end;
   height: 80%;
+ 
 }
 
 .btn {
   height: 25%;
   width: 25%;
+  border: 6px rgb(170, 170, 170) solid;
+  font-size: 20px;
+  
 }
+
+
 
 .btn-clear-section {
   display: flex;
@@ -55,4 +62,19 @@ body {
 
 .display .display-operator{
   width: 3%;
+  padding-right: 30px;
 }
+
+.display .display-current{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#btn-clear{
+  background-color: rgb(208, 87, 87);
+}
+
+#btn-delete{
+  background-color: rgb(112, 112, 217);
+}
+
